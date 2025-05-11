@@ -4,7 +4,6 @@
 import { LoginSchema, RegisterSchema } from "@/lib/validation";
 import axios from "@/lib/axios";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import setCookieParser from "set-cookie-parser";
 
 export const loginAction = async (formData: FormData) => {
@@ -45,6 +44,11 @@ export const loginAction = async (formData: FormData) => {
 };
 
 export const signupAction = async (formData: FormData) => {
+  const year_of_study_raw = formData.get("year_of_study");
+  const year_of_study = year_of_study_raw
+    ? Number(year_of_study_raw)
+    : undefined;
+
   const validateFields = RegisterSchema.safeParse({
     firstName: formData.get("firstName"),
     lastName: formData.get("lastName"),
@@ -54,7 +58,7 @@ export const signupAction = async (formData: FormData) => {
     phone: formData.get("phone"),
     college_name: formData.get("college_name"),
     branch: formData.get("branch"),
-    year_of_study: formData.get("year_of_study"),
+    year_of_study,
   });
 
   console.log("Fields are Validated");
@@ -71,7 +75,6 @@ export const signupAction = async (formData: FormData) => {
   const phone = formData.get("phone");
   const college_name = formData.get("college_name");
   const branch = formData.get("branch");
-  const year_of_study = formData.get("year_of_study");
 
   try {
     const response = await axios.post("/auth/signup", {
@@ -99,6 +102,7 @@ export const signupAction = async (formData: FormData) => {
 
     return data;
   } catch (error: any) {
+    console.error(error);
     const message =
       error?.response?.data?.message || "Signup failed. Please try again.";
     return { errors: { general: message } };

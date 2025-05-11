@@ -104,3 +104,31 @@ export async function getAllEvents() {
     return null;
   }
 }
+
+export async function getEventById(event_id: string) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+
+  if (!accessToken) return null;
+
+  if (!event_id) return null;
+
+  try {
+    const res = await fetch(
+      `${process.env.LOCAL_BACKEND_URL}/event/${event_id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+      }
+    );
+
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching event:", error);
+    return null;
+  }
+}
