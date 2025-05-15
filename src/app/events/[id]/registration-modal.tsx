@@ -50,7 +50,7 @@ export default function RegistrationModal({
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isLoading },
+    formState: { errors, isValid },
     control,
     watch,
     reset,

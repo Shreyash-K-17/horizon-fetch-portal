@@ -13,21 +13,12 @@ import { useAuth } from "@/app/AuthProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
-import { CircleUserRound, UserCircle2Icon } from "lucide-react";
-import { Button } from "../ui/button";
+import { CircleUserRound } from "lucide-react";
 
 const NavLinks = [
   { id: 1, title: "Events", link: "events" },
@@ -60,7 +51,7 @@ const NavbarClient = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className="container mx-auto py-6 flex justify-between items-center px-4 lg:px-0"
     >
       {/* Logo section */}

@@ -15,6 +15,7 @@ import { formatDate } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { RegisteredEvent } from "@/lib/types";
+import { motion } from "framer-motion";
 
 type Props = { registeredEvents: RegisteredEvent[] | null };
 
@@ -23,7 +24,12 @@ const RegistredEvent = ({ registeredEvents }: Props) => {
   const [activeTab, setActiveTab] = useState("registered");
 
   return (
-    <div className="lg:col-span-2">
+    <motion.div
+      initial={{ x: "-50%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="lg:col-span-2"
+    >
       <Tabs
         defaultValue="registered"
         className="w-full"
@@ -137,7 +143,7 @@ const RegistredEvent = ({ registeredEvents }: Props) => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </motion.div>
   );
 };
 

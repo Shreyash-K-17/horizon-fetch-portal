@@ -67,7 +67,9 @@ export async function getCurrentUserClient() {
     );
 
     return { success: true, data: response.data };
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error(error);
     return { success: false };
   }
 }

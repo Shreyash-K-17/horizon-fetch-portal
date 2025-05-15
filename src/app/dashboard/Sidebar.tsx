@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import { CalendarDays, Clock } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useAuth } from "../AuthProvider";
+import { motion } from "framer-motion";
 
 type Props = {
   registeredEvents: RegisteredEvent[] | null;
@@ -22,7 +22,12 @@ type Props = {
 const Sidebar = ({ registeredEvents }: Props) => {
   const { user } = useAuth();
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ x: "50%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="space-y-6"
+    >
       <Card>
         <CardHeader>
           <CardTitle>Your Profile</CardTitle>
@@ -44,9 +49,9 @@ const Sidebar = ({ registeredEvents }: Props) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant="outline" className="w-full">
-            Edit Profile
-          </Button>
+          <Link href="/profile" className="w-full">
+            <button className="primary-btn w-full">View Profile</button>
+          </Link>
         </CardFooter>
       </Card>
 
@@ -98,13 +103,11 @@ const Sidebar = ({ registeredEvents }: Props) => {
         </CardContent>
         <CardFooter>
           <Link href="/events" className="w-full">
-            <Button variant="outline" className="w-full">
-              View All Events
-            </Button>
+            <button className="primary-btn w-full">View All Events</button>
           </Link>
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 

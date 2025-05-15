@@ -21,7 +21,6 @@ export interface Event {
 }
 
 import { getAllEvents } from "../actions/actions";
-// import { getAllEvents } from "@/lib/auth";
 import { EventsComponet } from "./EventDetailCard";
 
 const Events = async () => {

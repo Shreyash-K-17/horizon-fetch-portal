@@ -1,4 +1,3 @@
-import { getCurrentUser } from "@/app/actions/actions";
 import NavbarClient from "./NavbarClient";
 
 export default async function Navbar() {
