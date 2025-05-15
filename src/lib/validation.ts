@@ -30,3 +30,27 @@ export const LoginSchema = z.object({
     .min(8, { message: "Your password must be at least 8 characters long" })
     .max(64, { message: "Your password cannot be longer than 64 characters" }),
 });
+
+export const teamMemberSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  phone: z
+    .string()
+    .length(10, "Phone number must be exactly 10 digits")
+    .regex(/^[0-9]+$/, "Phone number must be numeric"),
+});
+
+export const teamRegistrationSchema = z.object({
+  is_team_event: z.literal(true),
+  teamName: z.string().min(1, "Team name is required"),
+  teamMembers: z.array(teamMemberSchema).min(1, "At least one member required"),
+});
+
+export const soloRegistrationSchema = z.object({
+  is_team_event: z.literal(false),
+});
+
+export const registrationSchema = z.discriminatedUnion("is_team_event", [
+  teamRegistrationSchema,
+  soloRegistrationSchema,
+]);

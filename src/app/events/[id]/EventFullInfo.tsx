@@ -17,9 +17,11 @@ import Image from "next/image";
 import { Event } from "../page";
 import { useState } from "react";
 import { calculateDaysRemaining, formatDate, formatTime } from "@/lib/utils";
+import RegistrationModal from "./registration-modal";
 
 export default function EventFullInfo({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   const eventUrl = typeof window !== "undefined" ? window.location.href : "";
 
@@ -77,12 +79,12 @@ export default function EventFullInfo({ event }: { event: Event }) {
           <div className="flex flex-wrap gap-2 md:gap-4 text-white text-sm md:text-base">
             <div className="flex items-center gap-1">
               <CalendarDays className="h-3 w-3 md:h-4 md:w-4" />
-              <span>{formatDate(event.start_time)}</span>
+              <span>{formatDate(event.start_time!)}</span>
             </div>
             <div className="flex items-center gap-1">
               <Clock className="h-3 w-3 md:h-4 md:w-4" />
               <span>
-                {formatTime(event.start_time)} - {formatTime(event.end_time)}
+                {formatTime(event.start_time!)} - {formatTime(event.end_time!)}
               </span>
             </div>
             <div className="flex items-center gap-1">
@@ -113,6 +115,7 @@ export default function EventFullInfo({ event }: { event: Event }) {
                   size="lg"
                   className="w-full sm:w-auto"
                   disabled={!isRegistrationOpen}
+                  onClick={() => setIsRegistrationModalOpen(true)}
                 >
                   {isRegistrationOpen ? "Register Now" : "Registration Closed"}
                 </Button>
@@ -390,6 +393,17 @@ export default function EventFullInfo({ event }: { event: Event }) {
           </Card>
         </div>
       </div>
+
+      {/* Registration Modal */}
+      <RegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+        isTeamEvent={event.is_team_event!}
+        teamSizeMin={event.team_size_min}
+        teamSizeMax={event.team_size_max}
+        eventName={event.name}
+        event_id={event.uid}
+      />
     </div>
   );
 }

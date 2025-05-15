@@ -9,6 +9,25 @@ import logo from "@/assets/logo.png";
 import { NumberTicker } from "../magicui/number-ticker";
 import { AuroraText } from "../magicui/aurora-text";
 import MobileMenu from "./MobileMenu";
+import { useAuth } from "@/app/AuthProvider";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import { CircleUserRound, UserCircle2Icon } from "lucide-react";
+import { Button } from "../ui/button";
 
 const NavLinks = [
   { id: 1, title: "Events", link: "events" },
@@ -16,8 +35,9 @@ const NavLinks = [
   { id: 3, title: "Contact Us", link: "contact" },
 ];
 
-const NavbarClient = ({ user }: { user: any }) => {
+const NavbarClient = () => {
   const router = useRouter();
+  const { user, setUser } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -26,6 +46,7 @@ const NavbarClient = ({ user }: { user: any }) => {
         credentials: "include",
       });
       if (res.ok) {
+        setUser(null);
         router.refresh(); // Refresh server component state
       } else {
         console.error("Logout failed");
@@ -79,9 +100,32 @@ const NavbarClient = ({ user }: { user: any }) => {
       {/* Call to Action button */}
       <div className="hidden md:flex">
         {user ? (
-          <button onClick={handleLogout} className="primary-btn">
-            Logout
-          </button>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <CircleUserRound className="h-[45px] w-[45px] p-1 text-shadow-muted hover:text-muted-foreground cursor-pointer transition-all" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
+                <Link href="/dashboard" className="cursor-pointer">
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                </Link>
+
+                <Link href="/profile" className="cursor-pointer">
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                </Link>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  <button onClick={handleLogout} className="font-semibold">
+                    Logout
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         ) : (
           <Link href="/register">
             <button className="primary-btn">Register Now</button>

@@ -28,7 +28,7 @@ import {
 import { getYearLabel } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { signupAction } from "@/app/actions/form-actions";
+import { signupAction } from "@/app/actions/actions";
 
 type Inputs = z.infer<typeof RegisterSchema>;
 

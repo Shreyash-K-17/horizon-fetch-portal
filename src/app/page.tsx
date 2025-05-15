@@ -4,7 +4,8 @@ import Brands from "@/components/one-time/Brands";
 import Hero from "@/components/one-time/Hero";
 import Testimonial from "@/components/one-time/Testimonial";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <main className="flex flex-col justify-center items-center overflow-x-hidden">
       <Hero />

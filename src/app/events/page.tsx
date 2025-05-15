@@ -1,4 +1,3 @@
-
 export interface Event {
   uid: string;
   name: string;
@@ -21,15 +20,16 @@ export interface Event {
   updated_at?: string; // ISO 8601 datetime string
 }
 
-import { getAllEvents } from "@/lib/auth";
+import { getAllEvents } from "../actions/actions";
+// import { getAllEvents } from "@/lib/auth";
 import { EventsComponet } from "./EventDetailCard";
 
 const Events = async () => {
-  const events: Event[] | null = await getAllEvents();
+  const { data } = await getAllEvents();
 
   return (
     <main className="py-12">
-      <EventsComponet events={events} />
+      <EventsComponet events={data} />
     </main>
   );
 };

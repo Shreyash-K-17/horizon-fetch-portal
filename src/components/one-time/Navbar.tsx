@@ -1,11 +1,8 @@
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from "@/app/actions/actions";
 import NavbarClient from "./NavbarClient";
 
-
-
 export default async function Navbar() {
+  // const { data } = await getCurrentUser();
 
-  const user = await getCurrentUser();
-
-  return <NavbarClient user={user}/>
+  return <NavbarClient />;
 }

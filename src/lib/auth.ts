@@ -1,6 +1,8 @@
 // // lib/getCurrentUser.ts
 // import { cookies } from "next/headers";
 
+import axios from "axios";
+
 // export async function getCurrentUser() {
 //   const cookieStore = await cookies();
 //   let accessToken = cookieStore.get("access_token")?.value;
@@ -55,80 +57,17 @@
 //   return user;
 // }
 
-// lib/getCurrentUser.ts
-import { cookies } from "next/headers";
-
-export async function getCurrentUser() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
-
-  if (!accessToken) return null;
-
+export async function getCurrentUserClient() {
   try {
-    const res = await fetch(`${process.env.LOCAL_BACKEND_URL}/auth/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      cache: "no-store",
-    });
-
-    if (!res.ok) return null;
-    return await res.json();
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    return null;
-  }
-}
-
-export async function getAllEvents() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
-
-  if (!accessToken) return null;
-
-  try {
-    const res = await fetch(`${process.env.LOCAL_BACKEND_URL}/event`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-    });
-
-    if (!res.ok) return null;
-    return await res.json();
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    return null;
-  }
-}
-
-export async function getEventById(event_id: string) {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
-
-  if (!accessToken) return null;
-
-  if (!event_id) return null;
-
-  try {
-    const res = await fetch(
-      `${process.env.LOCAL_BACKEND_URL}/event/${event_id}`,
+    const response = await axios.get(
+      `${process.env.LOCAL_BACKEND_URL}/auth/me`,
       {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
+        withCredentials: true, // ⬅️ This ensures cookies are sent
       }
     );
 
-    if (!res.ok) return null;
-    return await res.json();
+    return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching event:", error);
-    return null;
+    return { success: false };
   }
 }

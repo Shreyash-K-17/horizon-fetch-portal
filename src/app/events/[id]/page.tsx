@@ -1,4 +1,5 @@
-import { getEventById } from "@/lib/auth";
+// import { getEventById } from "@/lib/auth";
+import { getEventById } from "@/app/actions/actions";
 import EventFullInfo from "./EventFullInfo";
 
 type Props = {
@@ -10,12 +11,12 @@ type Props = {
 const EventDetailPage = async ({ params }: Props) => {
   const { id } = await params;
 
-  const event = await getEventById(id);
+  const { data } = await getEventById(id);
 
   return (
     <div className="max-w-7xl mx-auto md:px-4 md:py-8">
-      {event ? (
-        <EventFullInfo event={event} />
+      {data ? (
+        <EventFullInfo event={data} />
       ) : (
         <div className="text-center text-red-500 font-semibold">
           Event not found.

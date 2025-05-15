@@ -114,7 +114,8 @@ import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { loginAction } from "@/app/actions/form-actions";
+import { loginAction } from "@/app/actions/actions";
+import { useAuth } from "@/app/AuthProvider";
 
 type Inputs = z.infer<typeof LoginSchema>;
 
@@ -123,6 +124,7 @@ export default function LoginForm() {
 
   const { toast } = useToast();
   const router = useRouter();
+  const { refreshUser } = useAuth();
 
   const {
     register,
@@ -153,6 +155,7 @@ export default function LoginForm() {
       description: "Login successful!",
     });
 
+    await refreshUser();
     router.push("/"); // redirect after login
   };
 
