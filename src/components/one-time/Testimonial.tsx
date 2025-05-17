@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { SlideUp } from "@/animations/animate";
-import { InfiniteMovingCards } from "./infinite-moving-cards";
+import { SlideLeft, SlideUp } from "@/animations/animate";
+import Image from "next/image";
+// import { InfiniteMovingCards } from "./infinite-moving-cards";
 
 // Testimonial data
 const TestimonialData = [
@@ -72,9 +73,47 @@ const TestimonialData = [
   },
 ];
 
+// const Testimonial = () => {
+//   return (
+//     <section className="py-14" aria-labelledby="testimonial-section">
+//       {/* heading title */}
+//       <div className="space-y-4 text-center max-w-[90%] sm:max-w-[550px] mx-auto mb-8">
+//         <motion.h1
+//           variants={SlideUp(0.2)}
+//           initial="initial"
+//           whileInView="animate"
+//           className="text-4xl font-bold font-serif"
+//           id="testimonial-section"
+//         >
+//           Words from our Core Team
+//         </motion.h1>
+//         <motion.p
+//           variants={SlideUp(0.4)}
+//           initial="initial"
+//           whileInView="animate"
+//           className="text-gray-500 text-sm max-w-[350px] mx-auto"
+//         >
+//           Get insights and inspiration straight from the leaders driving
+//           innovation at Hello World Tech.
+//         </motion.p>
+//       </div>
+
+//       <div className="p-12 rounded-md flex flex-col antialiased bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+//         <InfiniteMovingCards
+//           items={TestimonialData}
+//           direction="right"
+//           speed="slow"
+//         />
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Testimonial;
+
 const Testimonial = () => {
   return (
-    <section className="py-14" aria-labelledby="testimonial-section">
+    <div className="py-14">
       {/* heading title */}
       <div className="space-y-4 text-center max-w-[550px] mx-auto mb-8">
         <motion.h1
@@ -82,7 +121,6 @@ const Testimonial = () => {
           initial="initial"
           whileInView="animate"
           className="text-4xl font-bold font-serif"
-          id="testimonial-section"
         >
           Words from our Core Team
         </motion.h1>
@@ -97,14 +135,49 @@ const Testimonial = () => {
         </motion.p>
       </div>
 
-      <div className="p-12 rounded-md flex flex-col antialiased bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-        <InfiniteMovingCards
-          items={TestimonialData}
-          direction="right"
-          speed="slow"
-        />
+      {/* tesitomonial cards */}
+      <div className="bg-black p-12">
+        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 grid-rows-3">
+          {TestimonialData.map((card) => {
+            return (
+              <motion.div
+                variants={SlideLeft(0.4)}
+                initial="initial"
+                whileInView="animate"
+                key={card.id}
+                className="border-[1px] border-gray-500 px-5 py-10 text-white group hover:bg-white duration-300"
+              >
+                {/* Upper section */}
+                <div className="flex flex-row items-center gap-3 ">
+                  <Image
+                    src={card.img}
+                    alt=""
+                    height={40}
+                    width={40}
+                    className="rounded-full"
+                  />
+                  <div>
+                    <p className="text-sm font-bold group-hover:text-black">
+                      {card.name}
+                    </p>
+                    <p className="text-gray-400 text-xs group-hover:text-black">
+                      {card.designation}
+                    </p>
+                    <div className="text-xs mt-2">⭐⭐⭐⭐⭐</div>
+                  </div>
+                </div>
+                {/* Bottom section */}
+                <div className="mt-5 border-t-2 border-gray-500/40 pt-5">
+                  <p className="text-sm text-gray-300 group-hover:text-black duration-300">
+                    {card.text}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

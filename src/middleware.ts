@@ -70,5 +70,11 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/profile", "/profile/:path*", "/events", "/events/:path*"],
+  matcher: [
+    "/profile",
+    "/profile/:path*",
+    "/dashboard",
+    "/events",
+    "/events/:path*",
+  ],
 };

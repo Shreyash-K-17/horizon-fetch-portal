@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -19,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CircleUserRound } from "lucide-react";
+import { useState } from "react";
 
 const NavLinks = [
   { id: 1, title: "Events", link: "events" },
@@ -29,8 +29,12 @@ const NavLinks = [
 const NavbarClient = () => {
   const router = useRouter();
   const { user, setUser } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleLogout = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     try {
       const res = await fetch("/api/logout", {
         method: "GET",
@@ -38,11 +42,14 @@ const NavbarClient = () => {
       });
       if (res.ok) {
         setUser(null);
+        setIsSubmitting(false);
         router.refresh(); // Refresh server component state
       } else {
         console.error("Logout failed");
+        setIsSubmitting(false);
       }
     } catch (err) {
+      setIsSubmitting(false);
       console.error("Error during logout:", err);
     }
   };
@@ -86,7 +93,11 @@ const NavbarClient = () => {
         ))}
       </div>
 
-      <MobileMenu user={user} logout={handleLogout} />
+      <MobileMenu
+        user={user}
+        logout={handleLogout}
+        isSubmitting={isSubmitting}
+      />
 
       {/* Call to Action button */}
       <div className="hidden md:flex">
@@ -110,7 +121,11 @@ const NavbarClient = () => {
 
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">
-                  <button onClick={handleLogout} className="font-semibold">
+                  <button
+                    disabled={isSubmitting}
+                    onClick={handleLogout}
+                    className="font-semibold"
+                  >
                     Logout
                   </button>
                 </DropdownMenuItem>

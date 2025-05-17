@@ -2,6 +2,13 @@ import RegistredEvent from "./RegistredEvent";
 import { getAllRegistredEventsOfUser } from "../actions/actions";
 import Sidebar from "./Sidebar";
 import HeadlineClient from "./HeadlineClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Horizon Tect Fest 2025",
+  description:
+    "Access your personalized dashboard to track sessions, tickets, and participation stats.",
+};
 
 const Dashboard = async () => {
   const { data } = await getAllRegistredEventsOfUser();

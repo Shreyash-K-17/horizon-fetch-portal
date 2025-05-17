@@ -13,14 +13,19 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CustomButton } from "./CustomButton";
+import { AuroraText } from "../magicui/aurora-text";
+import { NumberTicker } from "../magicui/number-ticker";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 
 export default function MobileMenu({
   user,
   logout,
+  isSubmitting,
 }: {
   user: any;
   logout: () => void;
+  isSubmitting: boolean;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -61,7 +66,19 @@ export default function MobileMenu({
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="left" className="w-4/5 h-screen">
           <SheetHeader>
-            <SheetTitle className="text-xl font-bold">Menu</SheetTitle>
+            <SheetTitle className="text-xl font-bold flex items-center gap-2.5 justify-center">
+              <Image src={logo} alt="Horizon logo" width={35} height={35} />
+              <div>
+                <span> Horizon</span>{" "}
+                <AuroraText>
+                  <NumberTicker
+                    startValue={2000}
+                    value={2025}
+                    className="whitespace-pre-wrap pt-1 text-xl font-bold tracking-tighter text-black dark:text-white"
+                  />
+                </AuroraText>{" "}
+              </div>
+            </SheetTitle>
           </SheetHeader>
 
           {/* Content */}
@@ -101,13 +118,38 @@ export default function MobileMenu({
               </li>
             </ul>
             <Separator />
+            {user && (
+              <ul className="space-y-6 px-6">
+                <li>
+                  <Link
+                    href="/dashboard"
+                    className="block text-lg font-semibold transition-all"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/profile"
+                    className="block text-lg font-semibold transition-all"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </ul>
+            )}
+            {user && <Separator />}
           </div>
 
           <div className="py-4 px-6 w-full">
             {user ? (
-              <CustomButton className="primary-btn w-full" onClick={logout}>
+              <button
+                className="primary-btn w-full"
+                disabled={isSubmitting}
+                onClick={logout}
+              >
                 Logout
-              </CustomButton>
+              </button>
             ) : (
               <Link href="/register" className="w-full">
                 <button className="primary-btn w-full">Register Now</button>

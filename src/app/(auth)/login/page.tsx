@@ -1,6 +1,13 @@
 import LoginForm from "@/components/auth/login/LoginForm";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Login | Horizon Tect Fest 2025",
+  description:
+    "Access your Horizon Tect Fest 2025 account and manage your event experience.",
+};
 
 function LoginPage() {
   return (

@@ -27,8 +27,8 @@ import {
 } from "@/lib/constant";
 import { getYearLabel } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import { signupAction } from "@/app/actions/actions";
+import { toast } from "sonner";
 
 type Inputs = z.infer<typeof RegisterSchema>;
 
@@ -55,9 +55,7 @@ export default function RegisterForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
-  const router = useRouter()
-  const { toast } = useToast();
-
+  const router = useRouter();
   const delta = currentStep - previousStep;
 
   const {
@@ -103,25 +101,19 @@ export default function RegisterForm() {
       const result = await signupAction(formData);
 
       if (result?.errors) {
-        toast({
-          variant: "destructive",
-          description:
-            result.errors.general || "Please check your input and try again.",
-        });
+        toast.error(
+          result.errors.general || "Please check your input and try again."
+        );
         return;
       }
 
-      toast({
-        description: "User Registration successful!",
-      });
+      toast.success("User Registration successful!");
 
       router.push("/login");
     } catch (error: any) {
-      toast({
-        variant: "destructive",
-        description:
-          error?.message || "User Registration failed. Please try again.",
-      });
+      toast.error(
+        error?.message || "User Registration failed. Please try again."
+      );
     }
   };
 

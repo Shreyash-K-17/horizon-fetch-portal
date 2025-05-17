@@ -1,5 +1,12 @@
 import RegisterForm from "@/components/auth/register/RegisterForm";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Register | Horizon Tect Fest 2025",
+  description:
+    "Sign up for Horizon Tect Fest 2025 and be a part of the future of technology and innovation.",
+};
 
 const RegisterPage = () => {
   return (
