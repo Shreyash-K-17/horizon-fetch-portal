@@ -55,20 +55,54 @@
 //   return user;
 // }
 
-import axios from "@/lib/axios";
+// import axios from "@/lib/axios";
+
+// export async function getCurrentUserClient() {
+//   try {
+//     const response = await axios.get(`/auth/me`, {
+//       withCredentials: true,
+//     });
+
+//     return { success: true, data: response.data };
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (err: any) {
+//     return {
+//       success: false,
+//       error: err?.response?.data?.message || "Failed to fetch user.",
+//     };
+//   }
+// }
 
 export async function getCurrentUserClient() {
   try {
-    const response = await axios.get(`/auth/me`, {
-      withCredentials: true,
-    });
+    const response = await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? process.env.LOCAL_BACKEND_URL
+          : process.env.PROD_BACKEND_URL
+      }/auth/me`,
+      {
+        method: "GET",
+        credentials: "include", // same as axios's withCredentials: true
+      }
+    );
 
-    return { success: true, data: response.data };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        success: false,
+        error: errorData.message || "Failed to fetch user.",
+      };
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error(error)
     return {
       success: false,
-      error: err?.response?.data?.message || "Failed to fetch user.",
+      error: "Failed to fetch user.",
     };
   }
 }

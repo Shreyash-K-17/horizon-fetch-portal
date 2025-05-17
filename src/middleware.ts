@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-console.log("🚀 Middleware loaded");
-
 export const middleware = async (req: NextRequest) => {
   console.log("➡️ Inside middleware");
 
