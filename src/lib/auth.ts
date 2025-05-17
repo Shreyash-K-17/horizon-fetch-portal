@@ -75,31 +75,26 @@
 
 export async function getCurrentUserClient() {
   try {
-    const response = await fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? process.env.LOCAL_BACKEND_URL
-          : process.env.PROD_BACKEND_URL
-      }/auth/me`,
-      {
-        method: "GET",
-        credentials: "include", // same as axios's withCredentials: true
-      }
-    );
+    const response = await fetch("/api/me", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const result = await response.json();
 
     if (!response.ok) {
-      const errorData = await response.json();
       return {
         success: false,
-        error: errorData.message || "Failed to fetch user.",
+        error: result.error || "Failed to fetch user.",
       };
     }
 
-    const data = await response.json();
-    return { success: true, data };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error(error)
+    return {
+      success: true,
+      data: result.data,
+    };
+  } catch (error) {
+    console.error("Client fetch error:", error);
     return {
       success: false,
       error: "Failed to fetch user.",

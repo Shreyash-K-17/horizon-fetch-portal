@@ -13,18 +13,20 @@ export async function GET() {
     );
   }
 
+  const backendURL =
+    process.env.NODE_ENV === "development"
+      ? process.env.LOCAL_BACKEND_URL
+      : process.env.PROD_BACKEND_URL;
+
   try {
-    const backendRes = await fetch(
-      `${process.env.LOCAL_BACKEND_URL}/auth/logout`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const backendRes = await fetch(`${backendURL}/auth/logout`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     if (!backendRes.ok) {
       return NextResponse.json(
