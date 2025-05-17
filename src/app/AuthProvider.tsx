@@ -1,8 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { Event } from "./events/page";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { getCurrentUserClient } from "@/lib/auth";
+import { Event } from "./events/page";
 
 export interface User {
   uid: string;

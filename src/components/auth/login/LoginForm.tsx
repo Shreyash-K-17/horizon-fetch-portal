@@ -156,7 +156,7 @@ export default function LoginForm() {
     });
 
     await refreshUser();
-    router.push("/"); // redirect after login
+    router.push("/");
   };
 
   return (

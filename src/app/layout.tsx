@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/one-time/Navbar";
 import Footer from "@/components/one-time/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "./AuthProvider";
+import { AuthProvider } from "@/app/AuthProvider";
 import { getCurrentUser } from "./actions/actions";
 
 const geistSans = Geist({

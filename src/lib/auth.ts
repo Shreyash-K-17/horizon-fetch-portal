@@ -1,8 +1,6 @@
 // // lib/getCurrentUser.ts
 // import { cookies } from "next/headers";
 
-import axios from "axios";
-
 // export async function getCurrentUser() {
 //   const cookieStore = await cookies();
 //   let accessToken = cookieStore.get("access_token")?.value;
@@ -57,19 +55,20 @@ import axios from "axios";
 //   return user;
 // }
 
+import axios from "@/lib/axios";
+
 export async function getCurrentUserClient() {
   try {
-    const response = await axios.get(
-      `${process.env.LOCAL_BACKEND_URL}/auth/me`,
-      {
-        withCredentials: true, // ⬅️ This ensures cookies are sent
-      }
-    );
+    const response = await axios.get(`/auth/me`, {
+      withCredentials: true,
+    });
 
     return { success: true, data: response.data };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error(error);
-    return { success: false };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err?.response?.data?.message || "Failed to fetch user.",
+    };
   }
 }
