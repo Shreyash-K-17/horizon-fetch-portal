@@ -86,9 +86,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container max-w-7xl py-6 md:py-8">
+    <div className="container max-w-7xl py-6 md:py-8 mx-auto">
       {/* Hero Section */}
-      <div className="text-center mb-8 md:mb-12">
+      <div className="text-center align-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">
           Contact Us
         </h1>
@@ -481,21 +481,20 @@ export default function ContactPage() {
           Event Location
         </h2>
         <div className="rounded-xl overflow-hidden h-[250px] sm:h-[300px] md:h-[400px] relative">
-          <Image
-            src="/placeholder.svg?height=800&width=1600"
-            alt="Map of Horizon Tech Fest 2025 location"
-            fill
-            className="object-cover"
-          />
+          <iframe
+            src="https://www.google.com/maps?q=Kirti+M.+Doongursee+College+of+Arts,+Science+and+Commerce,+2RCJ%2B8FR,+Kashinath+Dhuru+Road,+Off.+Veer+Savarkar+Marg,+Dadar+West,+Dadar(W),+Mumbai,+Maharashtra+400028&output=embed"
+            className="w-full h-full border-0 rounded-xl min-h-[250px]"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-background/90 p-4 sm:p-6 rounded-lg max-w-xs sm:max-w-md text-center">
               <h3 className="font-bold text-lg md:text-xl mb-2">
                 Tech Convention Center
               </h3>
               <p className="text-muted-foreground mb-4">
-                123 Innovation Avenue
-                <br />
-                San Francisco, CA 94105
+                Kirti College, Dadar (W), Mumbai
               </p>
               <Button variant="outline" asChild>
                 <a

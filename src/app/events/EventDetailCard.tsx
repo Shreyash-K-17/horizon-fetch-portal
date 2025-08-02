@@ -37,7 +37,10 @@ export const EventCard = ({ event }: { event: Event }) => {
         </div>
         <CardContent className="p-4">
           <h3 className="text-xl font-bold mb-2 line-clamp-1">{event.name}</h3>
-          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+          {/* <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+            {event.description}
+          </p> */}
+          <p className="text-muted-foreground text-sm mb-3 line-clamp-2 group-hover:text-gray-100 transition-colors">
             {event.description}
           </p>
           <div className="flex flex-col gap-2 text-sm">

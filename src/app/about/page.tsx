@@ -89,7 +89,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container max-w-7xl py-8">
+    <div className="container max-w-7xl py-8 mx-auto">
       {/* Hero Section */}
       <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] rounded-xl overflow-hidden mb-8 md:mb-12">
         <Image
@@ -185,7 +185,7 @@ export default function AboutPage() {
       </div>
 
       {/* Theme Section */}
-      <div className="mb-12 md:mb-16 bg-muted/30 p-4 sm:p-6 md:p-8 rounded-xl">
+      {/* <div className="mb-12 md:mb-16 bg-muted/30 p-4 sm:p-6 md:p-8 rounded-xl">
         <div className="max-w-3xl mx-auto text-center">
           <Badge variant="outline" className="mb-4">
             2025 Theme
@@ -223,7 +223,86 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+      </div> */}
+      <div
+        className="mb-12 md:mb-16 p-4 sm:p-6 md:p-8 rounded-xl relative overflow-hidden
+             bg-gradient-to-br from-gray-100 to-indigo-100 
+             dark:from-slate-800 dark:to-slate-900"
+      >
+        {/* Subtle radial light in background */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none before:content-[''] before:absolute before:inset-0 
+               before:bg-[radial-gradient(circle_at_80%_20%,_#a5b4fc22_0%,_transparent_70%)] 
+               dark:before:bg-[radial-gradient(circle_at_80%_20%,_#6366f122_0%,_transparent_70%)] 
+               z-0"
+        />
+
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <Badge variant="outline" className="mb-4" aria-label="2025 Theme">
+            2025 Theme
+          </Badge>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-gray-900 dark:text-white">
+            Hello Tech World 2025
+          </h2>
+          <p className="text-base md:text-lg mb-6 text-gray-700 dark:text-gray-300">
+            Our theme for 2025 celebrates the convergence of technology and{" "}
+            <span className="font-semibold text-primary">human creativity</span>.{" "}
+            <span className="font-bold text-blue-700 dark:text-blue-400">
+              &quot;Hello Tech World&quot;
+            </span>{" "}
+            is more than just a greeting—it&apos;s an invitation to{" "}
+            <span className="font-semibold text-green-700 dark:text-green-400">explore</span>,{" "}
+            <span className="font-semibold text-purple-700 dark:text-purple-400">innovate</span>, and
+            shape the future of technology together.
+          </p>
+
+          {/* Theme Video */}
+          <div className="mb-8 flex justify-center">
+            <iframe
+              width="360"
+              height="202"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="Theme Introduction Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-lg shadow-lg"
+            ></iframe>
+          </div>
+
+          {/* Features */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mt-6 md:mt-8">
+            <div className="flex flex-col items-center text-center">
+              <Globe className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />
+              <h3 className="font-bold mb-1 md:mb-2 text-gray-900 dark:text-white">
+                Global Connection
+              </h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Bringing together tech communities from around the world
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <Code className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />
+              <h3 className="font-bold mb-1 md:mb-2 text-gray-900 dark:text-white">
+                Innovation
+              </h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Showcasing breakthrough technologies and ideas
+              </p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <Lightbulb className="h-10 w-10 md:h-12 md:w-12 text-primary mb-3 md:mb-4" />
+              <h3 className="font-bold mb-1 md:mb-2 text-gray-900 dark:text-white">
+                Inspiration
+              </h3>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Sparking creativity and new possibilities
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+
 
       {/* Event Highlights */}
       <div className="mb-12 md:mb-16">

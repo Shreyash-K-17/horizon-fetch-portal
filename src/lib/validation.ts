@@ -54,3 +54,34 @@ export const registrationSchema = z.discriminatedUnion("is_team_event", [
   teamRegistrationSchema,
   soloRegistrationSchema,
 ]);
+
+
+
+
+// update schema code 
+// Api 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log("Form data"); 
